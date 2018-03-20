@@ -1,0 +1,52 @@
+enum pieces_e {
+	Pawn,
+	Knight,
+	King,
+	Queen,
+	Bishop, 
+	Castle
+};
+
+enum player_e {
+	White,
+	Black
+};
+
+struct player_t {
+	enum player_e player;
+};
+
+struct game_t {
+	player_t player1;
+	player_t player2;
+	board_t board;
+};
+
+struct board_t {
+	piece_t *pieces;
+};
+
+struct piece_t {
+	enum pieces_e type;
+	enum player_e player;
+	int row;
+	int col;
+};
+
+struct move_t {
+	piece_t piece;
+	int row_start;
+	int row_end;
+	int col_start;
+	int col_end;
+	float value;
+};
+
+void run_game(int difficulty, enum player_e player);
+void do_move(struct board_t *board, struct move_t move);
+struct move_t get_move();
+struct move_t gen_move();
+float minimax(struct board_t *state, enum player_e turn, int max_depth);
+struct move_t *move get_legal_moves(struct board_t state, enum player_e player);
+bool check_win(struct board_t board, enum player_e *player);
+float eval_state(struct board_t state, enum player_e player);
